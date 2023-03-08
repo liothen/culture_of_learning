@@ -1,6 +1,15 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-string_to_encode = 'Hello World!                                  '
+
+string_to_encode = 'Hello World!'
+
+# Function body
+main_body = <<~MAIN 
+  #!/usr/bin/env ruby
+  # frozen_string_literal: true
+  puts DATA.read.unpack('Q*').map{_1>>3}.reject{_1<=64}.map.with_index{_1>>_2}.map(&:chr).join
+  __END__
+MAIN
 
 # Create some padding
 left_padding = Array.new(rand(512..2048)) { rand(1..64) }
@@ -23,6 +32,6 @@ string_byte_array = string_to_encode
 
 # Write ruby script
 open('main.rb', 'w') do |f|
-  f << File.read('main_template.rb')
+  f << main_body
   f << left_padding + string_byte_array + right_padding
 end
