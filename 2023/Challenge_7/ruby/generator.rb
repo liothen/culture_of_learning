@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-string_to_encode = 'Hello World!'
+string_to_encode = 'Hello, World!'
 
 # Function body
 main_body = <<~MAIN 
@@ -13,13 +13,13 @@ MAIN
 
 # Create some padding
 left_padding = Array.new(rand(512..2048)) { rand(1..64) }
-                    .reject { [32, 33].include?(_1) }
+                    .reject { [32, 33, 44].include?(_1) }
                     .map { _1 << 3 }
                     .pack('Q*')
 
 # Create some more padding
 right_padding = Array.new(rand(512..2048)) { rand(1..64) }
-                     .reject { [32, 33].include?(_1) }
+                     .reject { [32, 33, 44].include?(_1) }
                      .map { _1 << 3 }
                      .pack('Q*')
 
